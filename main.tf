@@ -11,6 +11,9 @@ module "alb" {
   source         = "git::https://github.com/challasrikanth/terraform-aws-webapp.git//modules/alb"
   public_subnets = module.vpc.public_subnet_ids
   vpc_id         = module.vpc.vpc_id
+
+
+ 
 }
 
 module "ec2_asg" {
@@ -19,4 +22,7 @@ module "ec2_asg" {
   instance_type    = var.instance_type
   private_subnets  = module.vpc.private_subnet_ids
   target_group_arn = module.alb.target_group_arn
+  vpc_id           = module.vpc.vpc_id
+  alb_sg_id = module.alb.alb_sg_id
+
 }
